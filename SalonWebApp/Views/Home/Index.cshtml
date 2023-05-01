@@ -1,0 +1,19 @@
+﻿@inject Salon.DataContext.SalonProjectContext db
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <!--<h1 class="display-4">Welcome</h1>
+    <p>На данный момент у нас: @db.Workers.Count() работников</p>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>-->
+    <div class="landing-container">
+    <img src="~/img/SalonLandingPage.png" style="width: 100%"/>
+    <div class="landing-text">
+        <h1 style="margin-top: 0;text-align: left; margin-bottom: 100px">Салон красоты SalonX</h1>
+        <h3>Мы предоставляем множество услуг:</h3>
+        <h3 style="margin-bottom: 50px">стрижки, покраски и т.п.</h3>
+        <button type="button" class="btn btn-primary btn-lg">О нас</button>
+    </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.landing-container {
+    position: relative;
+}
+
+.landing-text {
+    
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    padding: 20px;
+    color: black;
+    text-align: left; 
+}
+
+@media screen and (max-width: 600px) {
+    .landing-text {
+        position: static;
+        transform: none;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
