@@ -35,6 +35,7 @@ body {
 @media screen and (max-width: 600px) {
     .landing-text {
         position: static;
+        text-align: left;
         transform: none;
         text-align: center;
     }

@@ -18,6 +18,7 @@ namespace SalonWebApp
                 options.UseSqlServer(builder.Configuration.GetConnectionString("SalonConnection")));
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddSalonContext();

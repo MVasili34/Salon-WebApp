@@ -1,0 +1,62 @@
+﻿@model IEnumerable<PriceList>
+@{
+	string tilte = "Список всех наших услуг:";
+	ViewData["Title"] = tilte;
+	int counter = 1;
+}
+<h2>@tilte</h2>
+<hr />
+<h3>Поиск по услугам:</h3>
+<form asp-action="OurPricelist" method="POST">
+	<input name="Name" placeholder="Введите название улсуги"/>
+	<input type="submit"/>
+</form>
+@if (Model is null)
+{
+	<div>Услуги отсутствуют</div>
+}
+else
+{
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Код услуги</th>
+				<th>Название услуги</th>
+				<th>Цена услуги</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach(PriceList p in Model)
+			{
+				@if (++counter % 2 == 0)
+				{
+					<tr class="table-active">
+						<td scope="row">
+							@Html.DisplayFor(modelItem=>p.ServiceId)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem=>p.Service)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem=>p.Price)
+						</td>
+					</tr>
+				}
+				else
+				{
+					<tr >
+						<td scope="row">
+							@Html.DisplayFor(modelItem=>p.ServiceId)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem=>p.Service)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem=>p.Price)
+						</td>
+					</tr>
+				}
+			}
+		</tbody>
+	</table>
+}

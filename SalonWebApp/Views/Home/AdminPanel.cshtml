@@ -1,0 +1,40 @@
+﻿<div id="piechart" style="width: 800px; height: 450px;"></div>
+@{
+}
+@section Scripts
+{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            $.ajax({
+                type: 'GET',
+                url: '/Home/GetPieChartJson',
+                success: function (result) {
+                    console.log(result.servicePieCharts);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Service');
+                    data.addColumn('number', 'Income');
+                    $.each(result.servicePieCharts, function (i, item) {
+                        data.addRow([item.service, item.income]);
+                    });
+
+                    var options = {
+                        title: 'Доход по услугам',
+                        position: 'top',
+                        fontsize: '14px'
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                },
+                error: function () {
+                    alert('Error!');
+                }
+            });
+        }
+    </script>
+
+}
