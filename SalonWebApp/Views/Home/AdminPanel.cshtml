@@ -1,4 +1,8 @@
-﻿<div id="piechart" style="width: 800px; height: 450px;"></div>
+﻿<div class="diagrams-container">
+    <div class="diagram-item" id="piechart" style="width: 700px; height: 450px;"></div>
+    <div clsas="diagram-item" id="areachart" style="width: 700px; height: 450px;"></div>
+    <div clsas="diagram-item" id="columnchart" style="width: 700px; height: 450px;"></div>
+</div>
 @{
 }
 @section Scripts
@@ -34,6 +38,57 @@
                     alert('Error!');
                 }
             });
+            $.ajax({
+                type: 'GET',
+                url: '/Home/GetAreaChartJson',
+                success: function (result) {
+                    console.log(result.servicePieCharts);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Date');
+                    data.addColumn('number', 'Выручка');
+                    $.each(result.servicePieCharts, function (i, item) {
+                        data.addRow([new Date(item.data).toLocaleDateString(), item.income]);
+                    });
+
+                    var options = {
+                        title: 'Выручка за месяц',
+                        position: 'top',
+                        fontsize: '14px'
+                    };
+
+                    var chart = new google.visualization.AreaChart(document.getElementById('areachart'));
+                    chart.draw(data, options);
+                },
+                error: function () {
+                    alert('Error!');
+                }
+            });
+            $.ajax({
+                type: 'GET',
+                url: '/Home/GetColumnChartJson',
+                success: function (result) {
+                    console.log(result.servicePieCharts);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Name');
+                    data.addColumn('number', 'Выручка');
+                    $.each(result.servicePieCharts, function (i, item) {
+                        data.addRow([item.name, item.income]);
+                    });
+
+                    var options = {
+                        title: 'Выручка по сотрудникам',
+                        position: 'top',
+                        fontsize: '14px'
+                    };
+
+                    var chart = new google.visualization.ColumnChart(document.getElementById('columnchart'));
+                    chart.draw(data, options);
+                },
+                error: function () {
+                    alert('Error!');
+                }
+            });
+            
         }
     </script>
 

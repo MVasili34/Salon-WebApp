@@ -47,4 +47,18 @@ body {
     p {
         font-size: 16px;
     }
+    .diagram-item {
+        flex: 1 0 40%;
+        width: 400px;
+        height: 150px;
+    }
+}
+
+.diagrams-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.diagram-item {
+    flex: 1 0 40%;
 }

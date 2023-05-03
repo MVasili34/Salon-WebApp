@@ -30,18 +30,18 @@ namespace SalonWebApp.Controllers
             return View();
         }
 
-        public IActionResult OurPricelist()
+        public async Task<IActionResult> OurPricelist()
         {
-            IEnumerable<PriceList> model = db.PriceLists;
+            IEnumerable<PriceList> model = await Task.FromResult(db.PriceLists);
             return View(model);
         }
         [HttpPost]
-		public IActionResult OurPricelist(string? Name)
+		public async Task<IActionResult> OurPricelist(string? Name)
 		{
-			IEnumerable<PriceList> model = db.PriceLists.Where(p=>EF.Functions.Like(p.Service, $"%{Name}%"));
+			IEnumerable<PriceList> model = await Task.FromResult(db.PriceLists.Where(p=>EF.Functions.Like(p.Service, $"%{Name}%")));
             if (!model.Any())
             {
-                OurPricelist();
+                await OurPricelist();
             }
 			return View(model);
 		}
@@ -63,10 +63,10 @@ namespace SalonWebApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public JsonResult GetPieChartJson()
+        public async Task<JsonResult> GetPieChartJson()
         {
            
-            List<ServicePieChart> request = (from booking in db.Bookings
+            List<ServicePieChart> request = await (from booking in db.Bookings
               join priceList in db.PriceLists
                   on booking.ServiceId equals priceList.ServiceId
               group booking by priceList.Service into g
@@ -74,9 +74,35 @@ namespace SalonWebApp.Controllers
               {
                   Service = g.Key,
                   Income = g.Sum(booking => booking.ToPay)
-              }).ToList();
+              }).ToListAsync();
             return Json(new { servicePieCharts=request });
            
+        }
+
+        public async Task<JsonResult> GetAreaChartJson()
+        {
+
+            List<IncomeColumnChart> request = await (from booking in db.Bookings
+                                                     where booking.BookingDate>=DateTime.Parse("21.04.2023") &&
+                                                     booking.BookingDate <= DateTime.Parse("21.05.2023") && booking.VisitMark==true
+                                                   group booking by booking.BookingDate into g
+                                                   select new IncomeColumnChart
+                                                   {
+                                                       Data = g.Key,
+                                                       Income = g.Sum(booking => booking.ToPay)
+                                                   }).ToListAsync();
+            return Json(new { servicePieCharts = request });
+
+        }
+
+        public async Task<JsonResult> GetColumnChartJson()
+        {
+            List<WorkersIncomeChart> request =await( from b in db.Bookings
+                                               join w in db.Workers on b.EmpleyeeId equals w.PatentId
+                                               where b.BookingDate >= DateTime.Parse("21.04.2023") && b.BookingDate <= DateTime.Parse("21.05.2023") && b.VisitMark == true
+                                               group new { b, w } by w.FullName into g
+                                               select new WorkersIncomeChart { Name = g.Key, Income = g.Sum(x => x.b.ToPay) }).ToListAsync();
+            return Json(new { servicePieCharts = request });
         }
     }
 }

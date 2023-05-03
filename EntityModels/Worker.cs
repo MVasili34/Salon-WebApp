@@ -10,16 +10,16 @@ public partial class Worker
 {
     [Key]
     [Column("patentID")]
-    [StringLength(50)]
+    [StringLength(6)]
     public string PatentId { get; set; } = null!;
 
     [Column("fullName")]
-    [StringLength(100)]
+    [StringLength(50)]
     [Unicode(false)]
     public string FullName { get; set; } = null!;
 
     [Column("telNumber")]
-    [StringLength(20)]
+    [StringLength(10)]
     public string TelNumber { get; set; } = null!;
 
     [Column("shiftID")]
