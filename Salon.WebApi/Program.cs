@@ -12,6 +12,8 @@ namespace Salon.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.WebHost.UseUrls("https://localhost:5002/");
+
             // Add services to the container.
             builder.Services.AddSalonContext();
             builder.Services.AddControllers();
@@ -25,7 +27,15 @@ namespace Salon.WebApi
             //используем WorkerRepository в качестве зависимости с ограниченной областью действия
             builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 
+            builder.Services.AddCors();
+
             var app = builder.Build();
+
+            app.UseCors(options =>
+            {
+                options.WithMethods("GET", "POST", "PUT", "DELETE");
+                options.WithOrigins("https://localhost:5001/");
+            });
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

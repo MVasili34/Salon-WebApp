@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SalonWebApp.Data;
 using Microsoft.AspNetCore.Identity;
 using Salon.DataContext;
+using System.Net.Http.Headers; //для использования Factory
 
 namespace SalonWebApp
 {
@@ -10,6 +11,13 @@ namespace SalonWebApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddHttpClient("Salon.WebApi", options =>
+            {
+                options.BaseAddress = new Uri("https://localhost:5002/");
+                options.DefaultRequestHeaders.Accept.Add(new
+                MediaTypeWithQualityHeaderValue("application/json"));
+            });
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

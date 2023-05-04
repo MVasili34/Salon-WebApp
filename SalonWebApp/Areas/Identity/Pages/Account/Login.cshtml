@@ -2,7 +2,7 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Вход";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -10,7 +10,7 @@
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
+                <h2>Войдите используя свои данные.</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating">
@@ -32,33 +32,48 @@
                     </div>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Войти</button>
                 </div>
                 <div>
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Забыли пароль?</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Зарегистрироватья как новый клиент</a>
                     </p>
                     <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Отправить код подтверждения ещё раз</a>
                     </p>
                 </div>
             </form>
         </section>
     </div>
+    
     <div class="col-md-6 col-md-offset-2">
         <section>
-            <h3>Use another service to log in.</h3>
+            <h3>Используйте другой сервис авторзации.</h3>
             <hr />
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
                     <div>
                         <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
+                            Добро пожаловать в салон красоты! Мы стремимся обеспечить максимальную защиту конфиденциальности данных наших клиентов и обязуемся соблюдать следующие условия пользовательского соглашения:
+                            <br>
+                            <br>
+                            1. Мы собираем только те персональные данные, которые необходимы для предоставления услуг по уходу за вами.
+                            <br>
+                            2. Все собранные данные будут храниться в строгой конфиденциальности и не будут переданы третьим лицам без вашего явного согласия, за исключением случаев, когда это требуется законом.
+                            <br>
+                            3. Мы принимаем все необходимые меры для защиты ваших данных от несанкционированного доступа, изменения, уничтожения или раскрытия.
+                            <br>
+                            4. Вам предоставляется право на доступ к вашим персональным данным, а также на их изменение и удаление, если это не нарушит наши обязательства перед законом.
+                            <br>
+                            5. Мы обязуемся уведомлять вас в случае нарушения конфиденциальности ваших данных.
+                            <br>
+                            6. Настоящее соглашение регулируется законами и правилами о защите персональных данных, действующими в вашей стране.
+                            <br>
+                            Мы надеемся, что вы останетесь довольны нашими услугами и уверены в том, что ваша конфиденциальность у нас в надежных руках
                         </p>
                     </div>
                 }
@@ -69,7 +84,7 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Войдите используя свои данные">@provider.DisplayName</button>
                                 }
                             </p>
                         </div>

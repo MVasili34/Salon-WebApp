@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Worker>
+@{
+    int counter = 1;
+}
+<h1>@ViewData["Title"]</h1>
+<hr />
+<form asp-action="Workers" method="GET" class="form-group">
+    <input class="form-control" name="name" placeholder="Введите имя сотрудника" />
+    <input class="btn btn-info" type="submit" value="Найти" />
+</form>
+<hr />
+<p>
+    <a class="btn btn-info" asp-action="CreateWorker">+ Добавить сотрудника</a>
+</p>
+<hr />
+<table class="table table-hover">
+    <thead>
+        <tr class="table-info">
+            <th>Код патента</th>
+            <th>ФИО</th>
+            <th>Номер телефона</th>
+            <th>Код смены</th>
+            <th>Код должности</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model is not null)
+        {
+            @foreach (var item in Model)
+            {
+                @if (++counter % 2 == 0)
+                {
+                    <tr class="table-primary">
+                        <td>
+                        @Html.DisplayFor(modelItem => item.PatentId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TelNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShiftId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PositionId)
+                    </td>
+                    <td>
+                        <a asp-action="EditWorker" asp-route-id="" class="btn btn-info">🖉</a> |
+                        <a asp-action="DeleteWorker" asp-route-id="" class="btn btn-danger">🗑</a>
+                    </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="table-secondary">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PatentId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TelNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ShiftId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PositionId)
+                        </td>
+                        <td>
+                            <a asp-action="EditWorker" asp-route-id="" class="btn btn-info">🖉</a> |
+                            <a asp-action="DeleteWorker" asp-route-id="" class="btn btn-danger">🗑</a>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+

@@ -1,4 +1,40 @@
-﻿<div class="diagrams-container">
+﻿@inject SalonProjectContext db
+@{
+    ViewData["Title"] = "Панель администратора";
+}
+<h2>Панель для работы администратора</h2>
+<div class="d-flex justify-content-center flex-wrap">
+    <div class="card text-white bg-secondary mb-3 mx-2" style="max-width: 20rem;">
+        <div class="card-header">Работники</div>
+        <div class="card-body">
+            <h4 class="card-title">@db.Workers.Count() сотрудников</h4>
+            <p class="card-text"><a asp-action="Workers" class="btn btn-primary">Нажмите, дла администрирования.</a></p>
+        </div>
+    </div>
+    <div class="card text-white bg-secondary mb-3 mx-2" style="max-width: 20rem;">
+        <div class="card-header">Записи клиентов</div>
+        <div class="card-body">
+            <h4 class="card-title">@db.Bookings.Count() записей</h4>
+            <p class="card-text">Нажмите, дла администрирования.</p>
+        </div>
+    </div>
+    <div class="card text-white bg-secondary mb-3 mx-2" style="max-width: 20rem;">
+        <div class="card-header">Должности</div>
+        <div class="card-body">
+            <h4 class="card-title">@db.JobTitles.Count() должностей</h4>
+            <p class="card-text">Нажмите, дла администрирования.</p>
+        </div>
+    </div>
+    <div class="card text-white bg-secondary mb-3 mx-2" style="max-width: 20rem;">
+        <div class="card-header">Смены</div>
+        <div class="card-body">
+            <h4 class="card-title">@db.Shifts.Count() смен</h4>
+            <p class="card-text">Нажмите, дла администрирования.</p>
+        </div>
+    </div>
+</div>
+<div class="diagrams-container">
+
     <div class="diagram-item" id="piechart" style="width: 700px; height: 450px;"></div>
     <div clsas="diagram-item" id="areachart" style="width: 700px; height: 450px;"></div>
     <div clsas="diagram-item" id="columnchart" style="width: 700px; height: 450px;"></div>

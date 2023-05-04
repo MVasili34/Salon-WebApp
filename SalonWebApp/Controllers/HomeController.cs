@@ -12,12 +12,15 @@ namespace SalonWebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 		private readonly Salon.DataContext.SalonProjectContext db;
+        private readonly IHttpClientFactory clientFactory;
 
 		public HomeController(ILogger<HomeController> logger,
-            Salon.DataContext.SalonProjectContext db)
+            Salon.DataContext.SalonProjectContext db,
+            IHttpClientFactory clientFactory)
         {
             _logger = logger;
             this.db = db;
+            this.clientFactory = clientFactory;
         }
 
         public IActionResult Index()
@@ -30,19 +33,30 @@ namespace SalonWebApp.Controllers
             return View();
         }
 
-        public async Task<IActionResult> OurPricelist()
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Workers(string? name)
         {
-            IEnumerable<PriceList> model = await Task.FromResult(db.PriceLists);
+            string uri;
+            if (string.IsNullOrEmpty(name)) 
+            {
+				ViewData["Title"] = "Администрирование cотрудников";
+                uri = "api/workers/";
+			}
+            else
+            {
+				ViewData["Title"] = $"Сотрудники по имени: {name}";
+                uri = $"api/workers/?name={name}";
+            }
+            HttpClient worker = clientFactory.CreateClient("Salon.WebApi");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri);
+            HttpResponseMessage responseMessage = await worker.SendAsync(request);
+            IEnumerable<Worker>? model = await responseMessage.Content.ReadFromJsonAsync<IEnumerable<Worker>>();
             return View(model);
         }
-        [HttpPost]
-		public async Task<IActionResult> OurPricelist(string? Name)
+
+        public async Task<IActionResult> OurPricelist(string? Name)
 		{
 			IEnumerable<PriceList> model = await Task.FromResult(db.PriceLists.Where(p=>EF.Functions.Like(p.Service, $"%{Name}%")));
-            if (!model.Any())
-            {
-                await OurPricelist();
-            }
 			return View(model);
 		}
 
@@ -83,14 +97,14 @@ namespace SalonWebApp.Controllers
         {
 
             List<IncomeColumnChart> request = await (from booking in db.Bookings
-                                                     where booking.BookingDate>=DateTime.Parse("21.04.2023") &&
-                                                     booking.BookingDate <= DateTime.Parse("21.05.2023") && booking.VisitMark==true
-                                                   group booking by booking.BookingDate into g
-                                                   select new IncomeColumnChart
-                                                   {
-                                                       Data = g.Key,
-                                                       Income = g.Sum(booking => booking.ToPay)
-                                                   }).ToListAsync();
+              where booking.BookingDate>=DateTime.Parse("21.04.2023") &&
+              booking.BookingDate <= DateTime.Parse("21.05.2023") && booking.VisitMark==true
+              group booking by booking.BookingDate into g
+              select new IncomeColumnChart
+              {
+                  Data = g.Key,
+                  Income = g.Sum(booking => booking.ToPay)
+              }).ToListAsync();
             return Json(new { servicePieCharts = request });
 
         }
@@ -98,10 +112,10 @@ namespace SalonWebApp.Controllers
         public async Task<JsonResult> GetColumnChartJson()
         {
             List<WorkersIncomeChart> request =await( from b in db.Bookings
-                                               join w in db.Workers on b.EmpleyeeId equals w.PatentId
-                                               where b.BookingDate >= DateTime.Parse("21.04.2023") && b.BookingDate <= DateTime.Parse("21.05.2023") && b.VisitMark == true
-                                               group new { b, w } by w.FullName into g
-                                               select new WorkersIncomeChart { Name = g.Key, Income = g.Sum(x => x.b.ToPay) }).ToListAsync();
+              join w in db.Workers on b.EmpleyeeId equals w.PatentId
+              where b.BookingDate >= DateTime.Parse("21.04.2023") && b.BookingDate <= DateTime.Parse("21.05.2023") && b.VisitMark == true
+              group new { b, w } by w.FullName into g
+              select new WorkersIncomeChart { Name = g.Key, Income = g.Sum(x => x.b.ToPay) }).ToListAsync();
             return Json(new { servicePieCharts = request });
         }
     }
