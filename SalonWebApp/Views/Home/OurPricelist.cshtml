@@ -5,7 +5,81 @@
 	int counter = 1;
 }
 <h2>@tilte</h2>
+
 <hr />
+@if (this.User.IsInRole("Administrator"))
+{
+	<h3>Поиск по услугам:</h3>
+	<form asp-action="OurPricelist" method="POST" class="form-group">
+		<input class="form-control" name="Name" placeholder="Введите название улсуги" />
+		<input class="btn btn-info" type="submit" value="Найти" />
+	</form>
+	<hr />
+	<p>
+		<a class="btn btn-info" asp-controller="Services" asp-action="CreateService">+ Добавить услугу</a>
+	</p>
+	<hr />
+	@if (Model is null)
+	{
+		<div>Услуги отсутствуют</div>
+	}
+	else
+	{
+		<table class="table table-hover">
+			<thead>
+				<tr class="table-info">
+					<th>Код услуги</th>
+					<th>Название услуги</th>
+					<th>Цена услуги</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (PriceList p in Model)
+				{
+					@if (++counter % 2 == 0)
+					{
+						<tr class="table-primary">
+							<td scope="row">
+								@Html.DisplayFor(modelItem=>p.ServiceId)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem=>p.Service)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem=>p.Price)
+							</td>
+							<td>
+								<a asp-controller="Services" asp-action="EditService" asp-route-id="@p.ServiceId" class="btn btn-info">🖉</a> |
+								<a asp-controller="Services" asp-action="DeleteService" asp-route-id="@p.ServiceId" class="btn btn-danger">🗑</a>
+							</td>
+						</tr>
+					}
+					else
+					{
+						<tr class="table-secondary">
+							<td scope="row">
+								@Html.DisplayFor(modelItem=>p.ServiceId)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem=>p.Service)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem=>p.Price)
+							</td>
+							<td>
+								<a asp-controller="Services" asp-action="EditService" asp-route-id="@p.ServiceId" class="btn btn-info">🖉</a> |
+								<a asp-controller="Services" asp-action="DeleteService" asp-route-id="@p.ServiceId" class="btn btn-danger">🗑</a>
+							</td>
+						</tr>
+					}
+				}
+			</tbody>
+		</table>
+	}
+}
+else
+{
 <h3>Поиск по услугам:</h3>
 <form asp-action="OurPricelist" method="POST" class="form-group">
 	<input class="form-control" name="Name" placeholder="Введите название улсуги" />
@@ -60,4 +134,5 @@ else
 			}
 		</tbody>
 	</table>
+}
 }

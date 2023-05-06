@@ -4,7 +4,7 @@
 }
 <h1>@ViewData["Title"]</h1>
 <hr />
-<form asp-action="Workers" method="GET" class="form-group">
+<form asp-controller="Workers" asp-action="Index" method="GET" class="form-group">
     <input class="form-control" name="name" placeholder="Введите имя сотрудника" />
     <input class="btn btn-info" type="submit" value="Найти" />
 </form>
@@ -48,8 +48,8 @@
                         @Html.DisplayFor(modelItem => item.PositionId)
                     </td>
                     <td>
-                        <a asp-action="EditWorker" asp-route-id="" class="btn btn-info">🖉</a> |
-                        <a asp-action="DeleteWorker" asp-route-id="" class="btn btn-danger">🗑</a>
+                        <a asp-action="EditWorker" asp-route-id="@item.PatentId" class="btn btn-info">🖉</a> |
+                        <a asp-action="DeleteWorker" asp-route-id="@item.PatentId" class="btn btn-danger">🗑</a>
                     </td>
                     </tr>
                 }
@@ -72,8 +72,8 @@
                             @Html.DisplayFor(modelItem => item.PositionId)
                         </td>
                         <td>
-                            <a asp-action="EditWorker" asp-route-id="" class="btn btn-info">🖉</a> |
-                            <a asp-action="DeleteWorker" asp-route-id="" class="btn btn-danger">🗑</a>
+                            <a asp-action="EditWorker" asp-route-id="@item.PatentId" class="btn btn-info">🖉</a> |
+                            <a asp-action="DeleteWorker" asp-route-id="@item.PatentId" class="btn btn-danger">🗑</a>
                         </td>
                     </tr>
                 }

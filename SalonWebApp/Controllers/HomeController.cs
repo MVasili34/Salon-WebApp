@@ -33,32 +33,13 @@ namespace SalonWebApp.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Workers(string? name)
-        {
-            string uri;
-            if (string.IsNullOrEmpty(name)) 
-            {
-				ViewData["Title"] = "Администрирование cотрудников";
-                uri = "api/workers/";
-			}
-            else
-            {
-				ViewData["Title"] = $"Сотрудники по имени: {name}";
-                uri = $"api/workers/?name={name}";
-            }
-            HttpClient worker = clientFactory.CreateClient("Salon.WebApi");
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, uri);
-            HttpResponseMessage responseMessage = await worker.SendAsync(request);
-            IEnumerable<Worker>? model = await responseMessage.Content.ReadFromJsonAsync<IEnumerable<Worker>>();
-            return View(model);
-        }
 
         public async Task<IActionResult> OurPricelist(string? Name)
 		{
 			IEnumerable<PriceList> model = await Task.FromResult(db.PriceLists.Where(p=>EF.Functions.Like(p.Service, $"%{Name}%")));
 			return View(model);
 		}
+
 
 		[Authorize(Roles ="Administrator")]
         public IActionResult AdminPanel() 

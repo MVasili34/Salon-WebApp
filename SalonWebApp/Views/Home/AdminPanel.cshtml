@@ -2,13 +2,13 @@
 @{
     ViewData["Title"] = "Панель администратора";
 }
-<h2>Панель для работы администратора</h2>
+<h2>Панель администратора</h2>
 <div class="d-flex justify-content-center flex-wrap">
     <div class="card text-white bg-secondary mb-3 mx-2" style="max-width: 20rem;">
         <div class="card-header">Работники</div>
         <div class="card-body">
             <h4 class="card-title">@db.Workers.Count() сотрудников</h4>
-            <p class="card-text"><a asp-action="Workers" class="btn btn-primary">Нажмите, дла администрирования.</a></p>
+            <p class="card-text"><a asp-controller="Workers" asp-action="Index" class="btn btn-primary">Нажмите, дла администрирования.</a></p>
         </div>
     </div>
     <div class="card text-white bg-secondary mb-3 mx-2" style="max-width: 20rem;">
