@@ -18,7 +18,7 @@ namespace Salon.DataContext
         /// <returns>An IServiceCollection that can be used to add more services.</returns>
         public static IServiceCollection AddSalonContext(
           this IServiceCollection services, string connectionString =
-            "Data Source=.\\sqlexpress;Initial Catalog=SalonProject;"
+            "Data Source=.\\SQLEXPRESS;Initial Catalog=SalonProject;"
             + "Integrated Security=true;MultipleActiveResultsets=true;")
         {
             services.AddDbContext<SalonProjectContext>(options =>

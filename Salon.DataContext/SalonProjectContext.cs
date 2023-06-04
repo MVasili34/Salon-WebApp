@@ -42,7 +42,7 @@ public partial class SalonProjectContext : DbContext
     public virtual DbSet<Worker> Workers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=.\\sqlexpress;Initial Catalog=SalonProject;Integrated Security=true;User ID=User;Password=***;TrustServerCertificate=true");
+        => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=SalonProject;Integrated Security=true;User ID=User;Password=***;TrustServerCertificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
