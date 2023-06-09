@@ -12,13 +12,13 @@
   Прототипные скриншоты проекта представлены ниже:
   
   Форма администратора:
-![image](https://github.com/MVasili34/SalonWebApp/assets/117523384/a2fc8ca2-fd96-4ca9-b56d-fe2ff943eaf3)
+<img width="1280" alt="image" src="https://github.com/MVasili34/Salon-WebApp/assets/117523384/3054cdc7-1553-4bac-988b-a7b82306a485">
   
   Главная страница:
-![image](https://github.com/MVasili34/SalonWebApp/assets/117523384/c2cb3060-1a5f-46fa-949c-e0fd0f411f34)
+<img width="1280" alt="image" src="https://github.com/MVasili34/Salon-WebApp/assets/117523384/47c6c7be-427f-45c5-ba41-828e2853e60c">
   
   Форма авторизации:
-![image](https://github.com/MVasili34/SalonWebApp/assets/117523384/ef56904a-0647-410f-aadb-dc79e5dc5ede)
+<img width="1280" alt="image" src="https://github.com/MVasili34/Salon-WebApp/assets/117523384/f025b387-0a2e-4d82-946a-f8188895a4ac">
   
   Пример формы администрирования данных:
-![image](https://github.com/MVasili34/SalonWebApp/assets/117523384/4483df0b-7da6-421e-a5b8-a6fe162daccb)
+<img width="1280" alt="image" src="https://github.com/MVasili34/Salon-WebApp/assets/117523384/8946ee49-274f-4d57-9351-893b92cba318">
