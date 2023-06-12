@@ -11,11 +11,11 @@ namespace Salon.DataContext
     public static class SalonProjectContextExtensions
     {
         /// <summary>
-        /// Adds NorthwindContext to the specified IServiceCollection. Uses the SqlServer database provider.
+        /// Добавляет контекст базы данных SalonProject в IServiceCollection.
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="connectionString">Set to override the default.</param>
-        /// <returns>An IServiceCollection that can be used to add more services.</returns>
+        /// <param name="connectionString">Устанавливаем строку подключения.</param>
+        /// <returns>IServiceCollection для добавления других сервисов.</returns>
         public static IServiceCollection AddSalonContext(
           this IServiceCollection services, string connectionString =
             "Data Source=.\\SQLEXPRESS;Initial Catalog=SalonProject;"
