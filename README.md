@@ -1,5 +1,10 @@
 # Салон красоты - веб-приложение
 
+---
+ПРОЕКТ В РАЗРАБОТКЕ!
+
+---
+
 Проект находится на очень ранней стадии разработки. Представляет из себя адаптацию курсовой работы 1 семестра 2 курса под полноценное ASP .NET MVC приложение.
 Пока в нём реализуется несколько функций:
   
@@ -13,9 +18,6 @@
   
   Форма администратора:
 <img width="1280" alt="image" src="https://github.com/MVasili34/Salon-WebApp/assets/117523384/3054cdc7-1553-4bac-988b-a7b82306a485">
-  
-  Главная страница:
-<img width="1280" alt="image" src="https://github.com/MVasili34/Salon-WebApp/assets/117523384/47c6c7be-427f-45c5-ba41-828e2853e60c">
   
   Форма авторизации:
 <img width="1280" alt="image" src="https://github.com/MVasili34/Salon-WebApp/assets/117523384/f025b387-0a2e-4d82-946a-f8188895a4ac">
